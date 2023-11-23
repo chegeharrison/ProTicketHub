@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+  {%block title%}Register{% endblock %}
+{% block content %}
+    <h4>Register</h4>
+    <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button >Register</button>
+    </form>
+
+{% endblock %}

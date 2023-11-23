@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{%block title%}Home {% endblock %}
+{% block body %}
+<h5>Welcome, {{ user.username }}</h5>
+<h3>Active Events</h3>
+     <!--start of the 1st column-->
+<div class="container text-center">
+<div class="row">
+    {% for event in all_events %}
+       <div class="col-md-4">
+            <img src={{ event.image }} class= "rounded mx-auto d-block" alt="..." width="250px" height="200px">
+             <h5>{{ event.description }}</h5>
+             <p>{{ event.date }}</p>
+           <a href="#"><p><i class="bi bi-geo-alt-fill">{{ event.location }}</i></p></a>
+
+
+       </div>
+   {% endfor %}
+</div>
+</div>
+
+
+
+{% endblock %}
