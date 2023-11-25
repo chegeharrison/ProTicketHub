@@ -3,8 +3,9 @@ from .models import EventDb
 
 class DateInput(forms.DateInput):
     input_type = 'date'
+
 class TimeInput(forms.TimeInput):
-    input_type ='time'
+    input_type = 'time'
 
 class EventForm(forms.ModelForm):
     class Meta:
@@ -12,8 +13,7 @@ class EventForm(forms.ModelForm):
         fields =['Poster', 'Event_title','Date','Time','Location']
         widgets = {
             'Date': DateInput(),
-            'Time': TimeInput
-
+            'Time': TimeInput(),
         }
 
     def __init__(self, *args, **kwargs):

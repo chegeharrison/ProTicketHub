@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{%block title%} <title>Events</title> {% endblock %}
+{% block content %}
+<div class="container">
+     {% if messages %}
+         {% for message in messages %}
+           <h3>{{ message }}</h3>
+         {% endfor %}
+     {% endif %}
+  <div class="row">
+    {% for event in all_events %}
+       <div class="col-sm-12 col-md-4 col-lg-4 mt-4 mb-4">
+       <div class="card">
+            <img  src={{ event.image }} class="card-img-top" alt={{ event.Event_title }} width="250px" height="200px">
+           <div class="card-body">
+             <h5>{{ event.Event_title }}</h5>
+             <p>{{ event.Date }}</p>
+               <p>{{ event.Time }}</p>
+             <a href="#"><p><i class="bi bi-geo-alt-fill">{{ event.Location }}</i></p></a>
+
+           </div>
+           <div class="card-footer">
+           <a href="{% url 'delete' event.id %}"><button class="btn btn-outline-danger" style="width: 100%">Delete Event</button></a>
+           </div>
+       </div>
+       </div>
+   {% endfor %}
+</div>
+</div>
+
+
+
+{% include 'footer.html' %}
+{% endblock %}
+
