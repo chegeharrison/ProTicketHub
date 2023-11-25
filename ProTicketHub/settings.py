@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_bootstrap5',
     'ticketHub',
     'accounts',
+    'django_google_maps',
 ]
 
 MIDDLEWARE = [
@@ -121,7 +122,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 import os.path
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join('static'),)
 
 
@@ -135,5 +136,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+GOOGLE_MAPS_API_KEY='AIzaSyCdDaG-WPyvsB4xZoPJg-W-t3iK8PVCOQg'
 
 

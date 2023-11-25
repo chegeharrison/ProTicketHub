@@ -9,41 +9,43 @@ from django.contrib import messages
 # Create your views here.
 def home(request):
     all_events = EventDb.objects.all()
-    for event in all_events:
-        print(event.image,event.description, event.date, event.location)
     return render(request, 'homepage.html', {'all_events': all_events})
 
 
 def events(request):
-    return render(request, 'events.html')
+    all_events = EventDb.objects.all()
+    return render(request, 'events.html',{'all_events': all_events})
 
 @login_required()
 def create(request):
     if request.method == 'POST':
         form = EventForm(request.POST, request.FILES or None)
         if form.is_valid():
-            form.save()
-            all_events = EventDb.objects.all()
-            messages.success(request, 'New Event created')
-            print(form.errors)
-            return render(request, 'create.html', {'all_events': all_events})
+            new_event = form.save()
+            print(f"New Event created: {new_event.Event_title}")
+            messages.success(request, f'New Event "{new_event.Event_title}" created')
+            return redirect('events')
         else:
+            print("Form is not valid. Errors:", form.errors)
             messages.error(request, 'Form is not valid. Please check the entered data.')
-            all_events = EventDb.objects.all()
-            print(form.errors)
-            return render(request,  'create.html', {'form': form, 'all_events': all_events})
     else:
-        form = EventForm()  # Instantiate the form
-        all_events = EventDb.objects.all()
-        return render(request, 'create.html', {'form': form, 'all_events': all_events})
+        form = EventForm()
+
+    all_events = EventDb.objects.all()
+    return render(request, 'create.html', {'form': form, 'all_events': all_events})
+
+def delete(request, event_id):
+    try:
+        event = EventDb.objects.get(pk=event_id)
+        event.Event_title = event.Event_title
+        event.delete()
+        messages.success(request, f'Event "{event.Event_title}" deleted successfully')
+    except EventDb.DoesNotExist:
+        messages.error(request, 'Event not found')
+
+    return redirect('events')
 
 
-
-def delete(request, list_id):
-    event = EventDb.objects.get(pk=list_id)
-    event.delete()
-    messages.success(request,('Event Deleted'))
-    return redirect('create')
 
 def testing(request):
     return render(request, 'testing.html')
