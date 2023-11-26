@@ -2,6 +2,8 @@
 {% load static %}
 {%block title%} <title>Events</title> {% endblock %}
 {% block content %}
+     {% include 'navigation.html' %}
+     {% include 'carousel.html' %}
 <div class="container">
      {% if messages %}
          {% for message in messages %}

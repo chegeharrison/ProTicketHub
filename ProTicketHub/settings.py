@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'crispy_forms',
     'crispy_bootstrap5',
+    'django_daraja',
     'ticketHub',
     'accounts',
     'django_google_maps',
@@ -138,4 +139,18 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
 GOOGLE_MAPS_API_KEY='AIzaSyCdDaG-WPyvsB4xZoPJg-W-t3iK8PVCOQg'
 
+# be that its not on production we are using sandbox
+MPESA_ENVIRONMENT = 'sandbox'
 
+# Consumer key of the app is generated  on the daraja API when I create my application
+MPESA_CONSUMER_KEY = 'BLWU1i4aUiWkPIQ21DR5Tjs1bvP4GMG4'
+MPESA_CONSUMER_SECRET ='Y1Ue3ao56JpiNTUp'
+# Shortcode and express appear on my simulator wHen I select the app i'm working with
+MPESA_SHORTCODE = '174379'
+MPESA_EXPRESS_SHORTCODE = '174379'
+MPESA_SHORTCODE_TYPE ='paybill'
+MPESA_PASSKEY ='bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+
+#We then add the intiator username ad intiator password from the simulator
+MPESA_INITIATOR_USERNAME = 'testapi'
+MPESA_INITIATOR_SECURITY_CREDENTIAL = 'Safaricom999!*!'

@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+ {% block title %} <title>Buy Ticket</title>{% endblock %}
+ {% block content %}
+
+
+<div class="container">
+<h3 class="text-center">Event: {{ event.Event_title }}</h3>
+{% if purchased_ticket %}
+    <h2>Purchased Ticket Details</h2>
+    <p>Ticket Type: {{ purchased_ticket.ticket_type }}</p>
+    <p>Quantity: {{ purchased_ticket.quantity }}</p>
+    <p>Total Amount: ${{ purchased_ticket.price }}</p>
+{% endif %}
+    <div class="row">
+        <div class="col-sm-0 col-md-2 col-lg-3"></div>
+        <div class="col-sm-12 col-md-8 col-lg-6">
+           <form id="buy-tickets-form" method="post" action="{% url 'ticket' event.id %}">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="text-center">Buy Tickets</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                     <button class="btn btn-success" type="submit">Purchase Tickets</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Function to update total amount
+        function updateTotalAmount() {
+            var ticketType = $('#id_ticket_type').val();
+            var quantity = $('#id_quantity').val();
+
+            // Get ticket prices from the prepared dictionary
+            var prices = {{ ticket_prices|safe }};
+
+            // Use a default price if the ticket type is not found
+            var unitPrice = prices[ticketType] || 0;
+
+            var totalAmount = unitPrice * quantity;
+            $('#total-amount').text(totalAmount.toFixed(2));
+        }
+
+        // Update total amount when ticket type or quantity changes
+        $('#id_ticket_type, #id_quantity').on('input', updateTotalAmount);
+
+        // Initial update on page load
+        updateTotalAmount();
+    });
+</script>
+{% endblock %}
