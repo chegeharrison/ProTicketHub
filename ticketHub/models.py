@@ -6,6 +6,7 @@ class EventDb(models.Model):
     Date = models.DateField()
     Time = models.TimeField(null=True)
     Location = models.CharField(max_length=100)
+    approved = models.BooleanField(default=False)
 
     # Ticket prices for different types in Ksh
     advanced_price = models.IntegerField(default=0)

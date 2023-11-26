@@ -1,17 +1,12 @@
 from django.contrib import admin
 from .models import EventDb
-from django_google_maps import widgets as map_widgets
-from django_google_maps import fields as map_fields
-
-# Register your models here.
-admin.site.register(EventDb)
 
 
-# from django.contrib import admin
-# from django_google_maps import widgets as map_widgets
-# from django_google_maps import fields as map_fields
-#
-# class RentalAdmin(admin.ModelAdmin):
-#     formfield_overrides = {
-#         map_fields.AddressField: {'widget': map_widgets.GoogleMapsAddressWidget},
-#     }
+class EventDbAdmin(admin.ModelAdmin):
+    list_display = ['Event_title', 'Date', 'Time', 'Location', 'approved']
+    list_filter = ['approved']
+
+    def get_readonly_fields(self, request, obj=None):
+        return []  # Allow editing all fields, including 'approved'
+admin.site.register(EventDb, EventDbAdmin)
+

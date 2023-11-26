@@ -42,7 +42,20 @@ class TicketForm(forms.ModelForm):
         model = Ticket
         fields = ['ticket_type', 'quantity']
 
+
+class PhoneValidator:
+    def __init__(self, message="Invalid phone number."):
+        self.message = message
+
+    def __call__(self, value):
+        # You can customize the phone number validation logic here
+        if len(value) < 10:
+            raise ValidationError(self.message)
+
+
 class PaymentForm(forms.ModelForm):
+    phone_number = forms.CharField(max_length=12, validators=[PhoneValidator()])
+
     class Meta:
         model = Payment
         fields = ['phone_number', 'calculated_amount', 'ticket']
@@ -50,12 +63,3 @@ class PaymentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['calculated_amount'].widget.attrs['readonly'] = True
-
-    def clean_phone_number(self):
-        phone_number = self.cleaned_data['phone_number']
-
-        # Ensure that the phone number contains only numeric characters
-        if not phone_number.isdigit():
-            raise ValidationError("Phone number must contain only numeric characters.")
-
-        return phone_number

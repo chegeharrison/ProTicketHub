@@ -14,7 +14,7 @@
     {% for event in all_events %}
        <div class="col-sm-12 col-md-4 col-lg-4 mt-4 mb-4">
        <div class="card">
-            <img  src={{ event.image }} class="card-img-top" alt={{ event.Event_title }} width="250px" height="200px">
+            <img  src="/{{ event.Poster }}" class="card-img-top" alt={{ event.Event_title }} width="250px" height="200px">
            <div class="card-body">
              <h5>{{ event.Event_title }}</h5>
              <p>{{ event.Date }}</p>

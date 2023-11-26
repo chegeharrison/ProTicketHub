@@ -1,24 +1,26 @@
-from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .models import EventDb,Ticket,Payment
 from .forms import EventForm,TicketForm,PaymentForm
 from django.contrib import messages
 from django_daraja.mpesa.core import MpesaClient
 from django_daraja.mpesa.exceptions import MpesaInvalidParameterException
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from .models import EventDb, Ticket, Payment
+
 
 
 
 # Create your views here.
 def home(request):
-    all_events = EventDb.objects.all()
+    # Only fetch events that are approved
+    all_events = EventDb.objects.filter(approved=True)
     return render(request, 'homepage.html', {'all_events': all_events})
-
 @login_required()
 def events(request):
     all_events = EventDb.objects.all()
+    for event in all_events:
+        print('poster:', event.Poster)
     return render(request, 'events.html',{'all_events': all_events})
 
 @login_required()
@@ -28,7 +30,7 @@ def create(request):
         if event_form.is_valid():
             new_event = event_form.save()
             messages.success(request, f'New Event "{new_event.Event_title}" created')
-            return redirect('events', event_id=new_event.id)
+            return redirect('events')
         else:
             messages.error(request, 'Event Form is not valid. Please check the entered data.')
     else:
@@ -50,11 +52,7 @@ def delete(request, event_id):
 
 # views.py
 
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import EventDb, Ticket, Payment
-from .forms import TicketForm, PaymentForm
+
 
 # Your MpesaClient import statement goes here
 
@@ -116,7 +114,11 @@ def payment(request, event_id):
             payment.save()
 
             # Adjust your payment processing logic here using the updated form and model
-            name = "Example Name"  # Adjust this based on your user information
+            if request.user.is_authenticated:
+                name = request.user.username  # Replace with the actual attribute that contains the user's name
+            else:
+                name = "Guest User"
+                # Adjust this based on your user information
             amount = int(calculated_amount)
             account_reference = 'reference'
             transaction_desc = 'Description'
