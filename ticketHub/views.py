@@ -8,9 +8,6 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import EventDb, Ticket, Payment
 
-
-
-
 # Create your views here.
 def home(request):
     # Only fetch events that are approved
@@ -50,16 +47,9 @@ def delete(request, event_id):
 
     return redirect('events')
 
-# views.py
-
-
-
-# Your MpesaClient import statement goes here
 
 def ticket(request, event_id):
     event = EventDb.objects.get(pk=event_id)
-
-    # Fetch existing tickets for the event
     tickets = Ticket.objects.filter(event=event)
 
     if request.method == 'POST':
@@ -68,21 +58,14 @@ def ticket(request, event_id):
             ticket = form.save(commit=False)
             ticket.event = event
             ticket.save()
-
-            # Calculate the amount for the created ticket
             calculated_amount = ticket.price
-
-            # Pass the calculated amount to the payment form
             payment_form = PaymentForm(initial={'calculated_amount': calculated_amount})
-
             messages.success(request, 'Ticket created successfully')
             return render(request, 'payment.html', {'event': event, 'form': payment_form})
         else:
             messages.error(request, 'Ticket Form is not valid. Please check the entered data.')
     else:
         form = TicketForm()
-
-    # Prepare ticket prices for the template
     ticket_prices = {}
     for choice in form.fields['ticket_type'].choices:
         tickets_matching_type = event.ticket_set.filter(ticket_type=choice[0])
@@ -103,22 +86,15 @@ def payment(request, event_id):
         if form.is_valid():
             phone_number = form.cleaned_data['phone_number']
             calculated_amount = form.cleaned_data['calculated_amount']
-            ticket = form.cleaned_data['ticket']
-
-            # Create a new payment instance with the ticket's calculated amount
             payment = Payment(
-                ticket=ticket,
                 calculated_amount=calculated_amount,
                 phone_number=phone_number,
             )
             payment.save()
-
-            # Adjust your payment processing logic here using the updated form and model
             if request.user.is_authenticated:
-                name = request.user.username  # Replace with the actual attribute that contains the user's name
+                name = request.user.username
             else:
                 name = "Guest User"
-                # Adjust this based on your user information
             amount = int(calculated_amount)
             account_reference = 'reference'
             transaction_desc = 'Description'
@@ -136,7 +112,6 @@ def payment(request, event_id):
             return HttpResponse("Invalid form data. Please check your input.")
     else:
         calculated_amount = request.GET.get('calculated_amount')
-        ticket = Ticket.objects.first()
 
         form = PaymentForm(initial={'calculated_amount': calculated_amount, 'ticket': ticket})
 

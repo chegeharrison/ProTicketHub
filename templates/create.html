@@ -9,7 +9,7 @@
 <div class="container">
     <!-- Jumbotron-->
     <div class="jumbotron">
-          <h5 class="display-4">Welcome, {{ user.username }}</h5>
+          <h4 class="">Welcome, {{ user.username }}</h4>
           <p class="lead">Follow the instructions below to create your event:</p>
                 <ul class="list-group text-left">
                     <li class="list-group-item">Upload a poster with a width not less than 250px and height not less than 200px.</li>
@@ -17,25 +17,23 @@
                     <li class="list-group-item">Select the date when the event will be held.</li>
                     <li class="list-group-item">Specify the time when the event starts.</li>
                     <li class="list-group-item">Provide the location of the event.</li>
+                     <li class="list-group-item">Provide the prices for Each ticket type.</li>
                 </ul>
                 <hr class="my-4">
-</div>
+    </div>
 
       {% if messages %}
          {% for message in messages %}
            <h3>{{ message }}</h3>
          {% endfor %}
      {% endif %}
-
-<!-- Creating event-->
-
 <div class="row">
     <div class="col-sm-0 col-md-2"></div>
     <div class="col-sm-12 col-md-8 col-lg-8">
         <form enctype="multipart/form-data" method="post" action="{% url 'create' %}">
             {% csrf_token %}
             <fieldset class="form-group">
-                <legend class="text-success text-center">Create Your Event Here</legend>
+                <legend><h3 class="text-center">Create Your Event Here</h3></legend>
                 {{ event_form|crispy }}
             </fieldset>
 
@@ -44,52 +42,6 @@
         </form>
     </div>
 </div>
-
-
-
-{#<div class="row">#}
-{#    <div class="col-sm-0 col-md-2"></div>#}
-{#    <div class="col-sm-12  col-md-8 col-lg-8">#}
-{#        <form enctype="multipart/form-data" method="post" action="{% url 'create' %}">#}
-{#          {% csrf_token %}#}
-{#            <fieldset class="form-group">#}
-{#                <legend class="text-success  text-center">Create Your Event Here</legend>#}
-{#                {{ form|crispy }}#}
-{#            </fieldset>#}
-{#      <div class="form-group">#}
-{#    <label for="{{ event_form.advanced_price.id_for_label }}">Advanced Ticket Price:</label>#}
-{#    {{ event_form.advanced_price }}#}
-{#    </div>#}
-{##}
-{#<div class="form-group">#}
-{#    <label for="{{ event_form.gate_price.id_for_label }}">Gate Ticket Price:</label>#}
-{#    {{ event_form.gate_price }}#}
-{#</div>#}
-{##}
-{#<div class="form-group">#}
-{#    <label for="{{ event_form.vip_price.id_for_label }}">VIP Ticket Price:</label>#}
-{#    {{ event_form.vip_price }}#}
-{#</div>#}
-{##}
-{#<div class="form-group">#}
-{#    <label for="{{ event_form.vvip_price.id_for_label }}">VVIP Ticket Price:</label>#}
-{#    {{ event_form.vvip_price }}#}
-{#</div>#}
-{##}
-{##}
-{##}
-{#            <div class="form-group">#}
-{##}
-{##}
-{#                 <button class="btn btn-success" style="width: 100%">Submit</button>#}
-{#            </div>#}
-{##}
-{##}
-{#    </form>#}
-{#    </div>#}
-{#    <div class="col-sm-0 col-md-2"></div>#}
-{##}
-{#</div>#}
-{#</div>#}
+</div>
 {% include 'footer.html' %}
 {% endblock %}

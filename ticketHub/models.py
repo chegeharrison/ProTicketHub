@@ -8,7 +8,6 @@ class EventDb(models.Model):
     Location = models.CharField(max_length=100)
     approved = models.BooleanField(default=False)
 
-    # Ticket prices for different types in Ksh
     advanced_price = models.IntegerField(default=0)
     gate_price = models.IntegerField(default=0)
     vip_price = models.IntegerField(default=0)
@@ -51,7 +50,6 @@ class Ticket(models.Model):
 
 
 class Payment(models.Model):
-    ticket = models.ForeignKey(Ticket, on_delete=models.CASCADE)
     calculated_amount = models.IntegerField(null=True)
     phone_number = models.CharField(max_length=12, null=True)
     payment_date = models.DateTimeField(auto_now_add=True)

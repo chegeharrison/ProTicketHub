@@ -3,7 +3,7 @@
         <div class="carousel-inner">
             {% for event in all_events %}
                 <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                    <img src="/{{ event.Poster}}" class="d-block w-100 img img-fluid" style="width: 100%; height:auto;" alt=".." >
+                    <img src="/{{ event.Poster}}" class="d-block w-100 img img-fluid" style="width: 100%; height:250px;" alt=".." >
                 </div>
             {% endfor %}
         </div>

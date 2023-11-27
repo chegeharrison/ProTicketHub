@@ -7,6 +7,6 @@ class EventDbAdmin(admin.ModelAdmin):
     list_filter = ['approved']
 
     def get_readonly_fields(self, request, obj=None):
-        return []  # Allow editing all fields, including 'approved'
+        return []
 admin.site.register(EventDb, EventDbAdmin)
 

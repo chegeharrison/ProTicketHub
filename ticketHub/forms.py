@@ -48,7 +48,6 @@ class PhoneValidator:
         self.message = message
 
     def __call__(self, value):
-        # You can customize the phone number validation logic here
         if len(value) < 10:
             raise ValidationError(self.message)
 
@@ -58,7 +57,7 @@ class PaymentForm(forms.ModelForm):
 
     class Meta:
         model = Payment
-        fields = ['phone_number', 'calculated_amount', 'ticket']
+        fields = ['phone_number', 'calculated_amount',]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

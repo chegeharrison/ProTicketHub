@@ -17,21 +17,16 @@
     {% csrf_token %}
     <label for="id_name">Name:</label>
     <br>
-    <input type="text" name="name" id="id_name" value="{{ user.username }}">
+    <input class="payment" type="text" name="name" id="id_name" value="{{ user.username }}">
     <br>
-    <label for="id_phone_number">Phone Number:</label>
+    <label  for="id_phone_number">Phone Number:</label>
     <br>
-    <input type="number" name="phone_number" id="id_phone_number" required>
+    <input class="payment" type="number" name="phone_number" id="id_phone_number" required>
     <br>
     <label for="id_calculated_amount">Total Amount:</label>
     <br>
-    <input type="text" name="calculated_amount" id="id_calculated_amount" value="{{ form.initial.calculated_amount }}" readonly>
+    <input class="payment" type="text" name="calculated_amount" id="id_calculated_amount" value="{{ form.initial.calculated_amount }}" readonly>
     <br>
-    {{ form.ticket }}
-    <br>
-    {{ form.amount }}
-    <br>
-    {{ form.non_field_errors }}
     <button class="btn btn-success" type="submit">Make Payment</button>
 </form>
 
