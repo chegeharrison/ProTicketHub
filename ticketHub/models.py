@@ -29,7 +29,7 @@ class Ticket(models.Model):
 
     event = models.ForeignKey(EventDb, on_delete=models.CASCADE, null=True, blank=True)
     ticket_type = models.CharField(max_length=10, choices=TYPE_CHOICES)
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=1)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
 
     def save(self, *args, **kwargs):

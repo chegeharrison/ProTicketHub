@@ -23,7 +23,7 @@ class EventForm(forms.ModelForm):
 
             placeholders = {
                 'Poster': 'Provide your Poster Here',
-                'Event_title': 'Provide your Event_title',
+                'Event_title': 'Provide your Event Title',
                 'Date': 'Provide the Date Here',
                 'Time': 'Provide the Time Here',
                 'Location': 'Provide the Location Here',

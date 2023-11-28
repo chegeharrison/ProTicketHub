@@ -5,7 +5,7 @@
 }
 body{
     color: #888;
-    font: 300 16px/22px "Lato", "Open Sans","Helvetica Neue",Helvetica, Arial, sans-serif;
+    font: 300 16px/29px "Lato", "Open Sans","Helvetica Neue",Helvetica, Arial, sans-serif;
     }
 
 
@@ -47,4 +47,7 @@ h3 {
 }
 .location{
     text-decoration: none;
+}
+footer{
+    font-weight: bold;
 }

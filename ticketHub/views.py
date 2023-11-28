@@ -94,7 +94,7 @@ def payment(request, event_id):
             if request.user.is_authenticated:
                 name = request.user.username
             else:
-                name = "Guest User"
+              name = "Guest User"
             amount = int(calculated_amount)
             account_reference = 'reference'
             transaction_desc = 'Description'
