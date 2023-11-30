@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from .forms import EventForm,TicketForm,PaymentForm
+from .forms import EventForm,TicketForm,PaymentForm,EventApprovalRequestForm
 from django.contrib import messages
 from django_daraja.mpesa.core import MpesaClient
 from django_daraja.mpesa.exceptions import MpesaInvalidParameterException
@@ -123,3 +123,21 @@ def payment(request, event_id):
         form = PaymentForm(initial={'calculated_amount': calculated_amount, 'ticket': ticket})
 
     return render(request, 'payment.html', {'event': event, 'form': form})
+
+
+def request_approval(request, event_id):
+    event = EventDb.objects.get(pk=event_id)
+
+    if request.method == 'POST':
+        form = EventApprovalRequestForm(request.POST)
+        if form.is_valid():
+            if form.cleaned_data['submit_request']:
+                event.request_approval()
+                messages.success(request, f'Request for approval sent for event "{event.Event_title}"')
+                # Redirect to the same page to stay on event.html
+                return redirect('events', event_id=event.id)
+
+    else:
+        form = EventApprovalRequestForm()
+
+    return render(request, 'approval.html', {'event': event, 'approval_request_form': form})

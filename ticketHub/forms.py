@@ -50,8 +50,6 @@ class PhoneValidator:
     def __call__(self, value):
         if len(value) < 10:
             raise ValidationError(self.message)
-
-
 class PaymentForm(forms.ModelForm):
     phone_number = forms.CharField(max_length=12, validators=[PhoneValidator()])
 
@@ -62,3 +60,9 @@ class PaymentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['calculated_amount'].widget.attrs['readonly'] = True
+class EventApprovalRequestForm(forms.Form):
+    submit_request = forms.BooleanField(
+        initial=False,
+        widget=forms.widgets.CheckboxInput(attrs={'class': 'hidden-checkbox'}),
+        required=False,
+    )

@@ -23,7 +23,8 @@
 
            </div>
            <div class="card-footer">
-           <a href="{% url 'delete' event.id %}"><button class="btn btn-outline-danger" style="width: 100%">Delete Event</button></a>
+           <a href="{% url 'delete' event.id %}"><button class="btn btn-outline-danger special" style="width: 100%">Delete Event</button></a>
+           <a href="{% url 'approval' event.id %}"><button class="btn btn-outline-danger" style="width: 100%">Request Approval</button></a>
            </div>
        </div>
        </div>
