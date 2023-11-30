@@ -154,3 +154,4 @@ MPESA_PASSKEY ='bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919
 #We then add the intiator username ad intiator password from the simulator
 MPESA_INITIATOR_USERNAME = 'testapi'
 MPESA_INITIATOR_SECURITY_CREDENTIAL = 'Safaricom999!*!'
+

@@ -39,13 +39,20 @@ def create(request):
 def delete(request, event_id):
     try:
         event = EventDb.objects.get(pk=event_id)
-        event.Event_title = event.Event_title
-        event.delete()
-        messages.success(request, f'Event "{event.Event_title}" deleted successfully')
+
+        # Check if the event is approved
+        if event.approved:
+            messages.error(request, f'Cannot delete approved event "{event.Event_title}"')
+        else:
+            event_title = event.Event_title
+            event.delete()
+            messages.success(request, f'Event "{event_title}" deleted successfully')
+
     except EventDb.DoesNotExist:
         messages.error(request, 'Event not found')
 
     return redirect('events')
+
 
 
 def ticket(request, event_id):
