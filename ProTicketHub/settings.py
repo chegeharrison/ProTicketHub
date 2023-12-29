@@ -125,6 +125,8 @@ USE_TZ = True
 import os.path
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join('static'),)
+STATICFILES_DIRS = [BASE_DIR / "static"] # new
+STATIC_ROOT = BASE_DIR / "staticfiles" # new
 
 
 LOGIN_REDIRECT_URL = '/create/'
